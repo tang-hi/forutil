@@ -36,7 +36,35 @@ public class ForUtilVectorized {
     }
 
     public static void expand8(long[] arr) {
-        expand(arr, 8);
+        VectorSpecies<Long> SPECIES = LongVector.SPECIES_PREFERRED;
+        int loopBound = 16 / SPECIES.length();
+        for (int i = 0; i < loopBound; i++) {
+            LongVector l = LongVector.fromArray(SPECIES, arr, i * SPECIES.length());
+
+            LongVector shifted0 = l.lanewise(VectorOperators.LSHR, (long) 0 * 8).and(0xFFL);
+            shifted0.intoArray(arr, (7 - 0) * 16 + i * SPECIES.length());
+
+            LongVector shifted1 = l.lanewise(VectorOperators.LSHR, (long) 1 * 8).and(0xFFL);
+            shifted1.intoArray(arr, (7 - 1) * 16 + i * SPECIES.length());
+
+            LongVector shifted2 = l.lanewise(VectorOperators.LSHR, (long) 2 * 8).and(0xFFL);
+            shifted2.intoArray(arr, (7 - 2) * 16 + i * SPECIES.length());
+
+            LongVector shifted3 = l.lanewise(VectorOperators.LSHR, (long) 3 * 8).and(0xFFL);
+            shifted3.intoArray(arr, (7 - 3) * 16 + i * SPECIES.length());
+
+            LongVector shifted4 = l.lanewise(VectorOperators.LSHR, (long) 4 * 8).and(0xFFL);
+            shifted4.intoArray(arr, (7 - 4) * 16 + i * SPECIES.length());
+
+            LongVector shifted5 = l.lanewise(VectorOperators.LSHR, (long) 5 * 8).and(0xFFL);
+            shifted5.intoArray(arr, (7 - 5) * 16 + i * SPECIES.length());
+
+            LongVector shifted6 = l.lanewise(VectorOperators.LSHR, (long) 6 * 8).and(0xFFL);
+            shifted6.intoArray(arr, (7 - 6) * 16 + i * SPECIES.length());
+
+            LongVector shifted7 = l.lanewise(VectorOperators.LSHR, (long) 7 * 8).and(0xFFL);
+            shifted7.intoArray(arr, (7 - 7) * 16 + i * SPECIES.length());
+        }
     }
 
     public static void expand(long[] arr, int bpv) {
@@ -64,7 +92,59 @@ public class ForUtilVectorized {
     }
 
     public static void collapse8(long[] arr) {
-        collapse(arr, 8);
+        VectorSpecies<Long> SPECIES = LongVector.SPECIES_PREFERRED;
+        int loopBound = 16 - (16 % SPECIES.length());
+
+        for (int i = 0; i < loopBound; i += SPECIES.length()) {
+            LongVector result = LongVector.zero(SPECIES);
+
+            LongVector shifted56 = LongVector.fromArray(SPECIES, arr, i).lanewise(VectorOperators.LSHL, 56);
+            LongVector shifted48 = LongVector.fromArray(SPECIES, arr, i + 16).lanewise(VectorOperators.LSHL, 48);
+            LongVector shifted40 = LongVector.fromArray(SPECIES, arr, i + 32).lanewise(VectorOperators.LSHL, 40);
+            LongVector shifted32 = LongVector.fromArray(SPECIES, arr, i + 48).lanewise(VectorOperators.LSHL, 32);
+            LongVector shifted24 = LongVector.fromArray(SPECIES, arr, i + 64).lanewise(VectorOperators.LSHL, 24);
+            LongVector shifted16 = LongVector.fromArray(SPECIES, arr, i + 80).lanewise(VectorOperators.LSHL, 16);
+            LongVector shifted8  = LongVector.fromArray(SPECIES, arr, i + 96).lanewise(VectorOperators.LSHL, 8);
+            LongVector shifted0  = LongVector.fromArray(SPECIES, arr, i + 112);
+            result = result.or(shifted56)
+                    .or(shifted48)
+                    .or(shifted40)
+                    .or(shifted32)
+                    .or(shifted24)
+                    .or(shifted16)
+                    .or(shifted8)
+                    .or(shifted0);
+
+            result.intoArray(arr, i);
+        }
+
+        // Handle remaining elements using scalar operations
+        for (int i = loopBound; i < 16; ++i) {
+            arr[i] =
+                    (arr[i] << 56)
+                            | (arr[16 + i] << 48)
+                            | (arr[32 + i] << 40)
+                            | (arr[48 + i] << 32)
+                            | (arr[64 + i] << 24)
+                            | (arr[80 + i] << 16)
+                            | (arr[96 + i] << 8)
+                            | arr[112 + i];
+        }
+
+//        for (int i = 0; i < 8; i++) {
+//            long SHIFT =  (64 - (long) (i + 1) * 8);
+//            for (int j = 0; j < loopBound; j++) {
+//                int offset = i * 16 + j * SPECIES.length();
+//                LongVector l = LongVector.fromArray(SPECIES, arr, offset);
+//                LongVector shifted = l.lanewise(VectorOperators.LSHL, SHIFT);
+//                if (i == 0) {
+//                    shifted.intoArray(arr, offset % (16));
+//                } else {
+//                    LongVector result = shifted.or(LongVector.fromArray(SPECIES, arr, offset % (16)));
+//                    result.intoArray(arr, offset % (16));
+//                }
+//            }
+//        }
     }
 
     private static void collapse(long[] arr, int bpv) {
@@ -100,7 +180,38 @@ public class ForUtilVectorized {
     }
 
     public static void collapse16(long[] arr) {
-       collapse(arr, 16);
+        VectorSpecies<Long> SPECIES = LongVector.SPECIES_PREFERRED;
+        int loopBound = 32 - (32 % SPECIES.length());
+
+        for (int i = 0; i < loopBound; i += SPECIES.length()) {
+            LongVector result = LongVector.zero(SPECIES);
+
+            LongVector shifted48 = LongVector.fromArray(SPECIES, arr, i).lanewise(VectorOperators.LSHL, 48);
+            LongVector shifted32 = LongVector.fromArray(SPECIES, arr, i + 32).lanewise(VectorOperators.LSHL, 32);
+            LongVector shifted16 = LongVector.fromArray(SPECIES, arr, i + 64).lanewise(VectorOperators.LSHL, 16);
+            LongVector shifted0  = LongVector.fromArray(SPECIES, arr, i + 96);
+            result = result
+                    .or(shifted48)
+                    .or(shifted32)
+                    .or(shifted16)
+                    .or(shifted0);
+
+            result.intoArray(arr, i);
+        }
+
+        // Handle remaining elements using scalar operations
+        for (int i = loopBound; i < 16; ++i) {
+            arr[i] =
+                    (arr[i] << 56)
+                            | (arr[16 + i] << 48)
+                            | (arr[32 + i] << 40)
+                            | (arr[48 + i] << 32)
+                            | (arr[64 + i] << 24)
+                            | (arr[80 + i] << 16)
+                            | (arr[96 + i] << 8)
+                            | arr[112 + i];
+        }
+
     }
 
     public static void expand32(long[] arr) {
@@ -108,7 +219,33 @@ public class ForUtilVectorized {
     }
 
     public static void collapse32(long[] arr) {
-        collapse(arr, 32);
+        VectorSpecies<Long> SPECIES = LongVector.SPECIES_PREFERRED;
+        int loopBound = 64 - (64 % SPECIES.length());
+
+        for (int i = 0; i < loopBound; i += SPECIES.length()) {
+            LongVector result = LongVector.zero(SPECIES);
+
+            LongVector shifted32= LongVector.fromArray(SPECIES, arr, i).lanewise(VectorOperators.LSHL, 32);
+            LongVector shifted0  = LongVector.fromArray(SPECIES, arr, i + 64);
+            result = result
+                    .or(shifted32)
+                    .or(shifted0);
+
+            result.intoArray(arr, i);
+        }
+
+        // Handle remaining elements using scalar operations
+        for (int i = loopBound; i < 16; ++i) {
+            arr[i] =
+                    (arr[i] << 56)
+                            | (arr[16 + i] << 48)
+                            | (arr[32 + i] << 40)
+                            | (arr[48 + i] << 32)
+                            | (arr[64 + i] << 24)
+                            | (arr[80 + i] << 16)
+                            | (arr[96 + i] << 8)
+                            | arr[112 + i];
+        }
     }
 
     private final long[] tmp = new long[BLOCK_SIZE / 2];
@@ -133,16 +270,26 @@ public class ForUtilVectorized {
             collapse32(longs);
         }
 
+        VectorSpecies<Long> SPECIES = LongVector.SPECIES_PREFERRED;
+
         final int numLongsPerShift = bitsPerValue * 2;
         int idx = 0;
-        // leading useless bits
         int shift = nextPrimitive - bitsPerValue;
 
-        for (int i = 0; i < numLongsPerShift; ++i) {
+        int i = 0;
+        for (i = 0; i < numLongsPerShift / SPECIES.length() ; ++i) {
+            LongVector l = LongVector.fromArray(SPECIES, longs, i * SPECIES.length());
+            LongVector shifted = l.lanewise(VectorOperators.LSHL,  shift);
+            shifted.intoArray(tmp, i * SPECIES.length());
+            idx += SPECIES.length();
+        }
+        i = i * SPECIES.length();
+        for(; i  < numLongsPerShift; ++i) {
             tmp[i] = longs[idx++] << shift;
         }
+
         for (shift = shift - bitsPerValue; shift >= 0; shift -= bitsPerValue) {
-            for (int i = 0; i < numLongsPerShift; ++i) {
+            for (i = 0; i < numLongsPerShift; ++i) {
                 tmp[i] |= longs[idx++] << shift;
             }
         }
@@ -186,7 +333,10 @@ public class ForUtilVectorized {
             }
         }
 
-        System.out.println("a");
+        for (i = 0; i < numLongsPerShift; ++i) {
+            out[i] = tmp[i];
+        }
+
     }
 
     /**

@@ -14,7 +14,7 @@ public class ForUtilVectorizedTest {
     public void expand8() {
         Random random = new Random();
         random.nextLong();
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             long[] input = new long[128];
             for (int j = 0; j < 128; j++) {
                 input[j] = random.nextLong();
@@ -34,7 +34,7 @@ public class ForUtilVectorizedTest {
     public void expand16() {
         Random random = new Random();
         random.nextLong();
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             long[] input = new long[128];
             for (int j = 0; j < 128; j++) {
                 input[j] = random.nextLong();
@@ -54,7 +54,7 @@ public class ForUtilVectorizedTest {
     public void expand32() {
         Random random = new Random();
         random.nextLong();
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             long[] input = new long[128];
             for (int j = 0; j < 128; j++) {
                 input[j] = random.nextLong();
@@ -74,7 +74,7 @@ public class ForUtilVectorizedTest {
     @Test
     public void collapse8() {
         Random random = new Random();
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             long[] input = new long[128];
             for (int j = 0; j < 128; j++) {
                 input[j] = random.nextLong(1 << 8);
@@ -94,7 +94,7 @@ public class ForUtilVectorizedTest {
     @Test
     public void collapse16() {
         Random random = new Random();
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             long[] input = new long[128];
             for (int j = 0; j < 128; j++) {
                 input[j] = random.nextLong(1 << 16);
@@ -114,7 +114,7 @@ public class ForUtilVectorizedTest {
     @Test
     public void collapse32() {
         Random random = new Random();
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             long[] input = new long[128];
             for (int j = 0; j < 128; j++) {
                 input[j] = random.nextLong(1L << 32);
@@ -132,22 +132,178 @@ public class ForUtilVectorizedTest {
     }
 
     @Test
-    public void encode() throws IOException {
-        long[]  arr = new long[128];
-        for(int i = 1; i < 128; i++) {
-           arr[i-1] = i;
+    public void encodeDecode_1() {
+        Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(2);
+            }
+            long[] output = new long[128];
+            SimdPack.pack1_128bit(input, output);
+
+            long[] output1 = new long[128];
+            SimdPack.unpack1_128bit(output, output1);
+
+            Assert.assertArrayEquals(input, output1);
+
         }
-        arr[127] = 127;
-        arr[0] = 127;
-//        ForUtilVectorized forUtilVectorized = new ForUtilVectorized();
-//        forUtilVectorized.encode(arr, 8, arr);
-        ForUtil forUtil = new ForUtil();
-        long[] out1 = new long[128];
-        long[] out2 = new long[128];
-        forUtil.encode(arr, 7, out1);
-        forUtil.decode(7, out1, out2);
     }
 
+    @Test
+    public void encodeDecode_2() {
+        Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 2);
+            }
+            long[] output = new long[128];
+            SimdPack.pack2_256bit(input, output);
+
+            long[] output1 = new long[128];
+            SimdPack.unpack2_256bit(output, output1);
+
+            Assert.assertArrayEquals(input, output1);
+
+        }
+    }
+
+    @Test
+    public void encodeDecode_3() {
+        Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 3);
+            }
+            long[] output = new long[128];
+            SimdPack.pack3_256bit(input, output);
+
+            long[] output1 = new long[128];
+            SimdPack.unpack3_256bit(output, output1);
+
+            Assert.assertArrayEquals(input, output1);
+
+        }
+    }
+
+    @Test
+    public void encodeDecode_4() {
+        Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 4);
+            }
+            long[] output = new long[128];
+            SimdPack.pack4_256bit(input, output);
+
+            long[] output1 = new long[128];
+            SimdPack.unpack4_256bit(output, output1);
+
+            Assert.assertArrayEquals(input, output1);
+
+        }
+    }
+
+    @Test
+    public void encodeDecode_5() {
+        Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 5);
+            }
+            long[] output = new long[128];
+            SimdPack.pack5_256bit(input, output);
+
+            long[] output1 = new long[128];
+            SimdPack.unpack5_256bit(output, output1);
+
+            Assert.assertArrayEquals(input, output1);
+
+        }
+    }
+
+    @Test
+    public void encodeDecode_6() {
+        Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 6);
+            }
+            long[] output = new long[128];
+            SimdPack.pack6_256bit(input, output);
+
+            long[] output1 = new long[128];
+            SimdPack.unpack6_256bit(output, output1);
+
+            Assert.assertArrayEquals(input, output1);
+
+        }
+    }
+
+    @Test
+    public void encodeDecode_7() {
+        Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 7);
+            }
+            long[] output = new long[128];
+            SimdPack.pack7_256bit(input, output);
+
+            long[] output1 = new long[128];
+            SimdPack.unpack7_256bit(output, output1);
+
+            Assert.assertArrayEquals(input, output1);
+
+        }
+    }
+
+    @Test
+    public void encodeDecode_8() {
+        Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 8);
+            }
+            long[] output = new long[128];
+            SimdPack.pack8_256bit(input, output);
+
+            long[] output1 = new long[128];
+            SimdPack.unpack8_256bit(output, output1);
+
+            Assert.assertArrayEquals(input, output1);
+
+        }
+    }
+
+//    @Test
+//    public void encode() throws IOException {
+//        Random random = new Random();
+//        for (int i = 0; i < 100; i++) {
+//            long[] arr = new long[128];
+//            long[] arr1 = new long[128];
+//            for (int j = 0; j < 128; j++) {
+//                arr[j] = random.nextLong((1 << 7) - 1);
+//                arr1[j] = arr[j];
+//            }
+//            long[] out1 = new long[128];
+//            long[] out2 = new long[128];
+//            ForUtilVectorized forUtilVectorized = new ForUtilVectorized();
+//            Assert.assertArrayEquals(arr1, arr);
+//            forUtilVectorized.encode(arr, 7, out1);
+//            ForUtil forUtil = new ForUtil();
+//            forUtil.encode(arr1, 7, out2);
+//            Assert.assertArrayEquals(Arrays.copyOfRange(out1, 0, 14),
+//                    Arrays.copyOfRange(out2, 0, 14));
+//        }
+//    }
 
 
 }

@@ -129,9 +129,11 @@ public class ForUtil {
         final int numLongsPerShift = bitsPerValue * 2;
         int idx = 0;
         int shift = nextPrimitive - bitsPerValue;
+        // push to the head of byte
         for (int i = 0; i < numLongsPerShift; ++i) {
             tmp[i] = longs[idx++] << shift;
         }
+        // can we insert more data in the same byte?
         for (shift = shift - bitsPerValue; shift >= 0; shift -= bitsPerValue) {
             for (int i = 0; i < numLongsPerShift; ++i) {
                 tmp[i] |= longs[idx++] << shift;
