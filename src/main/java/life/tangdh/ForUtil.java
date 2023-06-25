@@ -1,6 +1,7 @@
 package life.tangdh;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ForUtil {
     static final int BLOCK_SIZE = 128;
@@ -108,10 +109,439 @@ public class ForUtil {
 
     private final long[] tmp = new long[BLOCK_SIZE / 2];
 
-    /** Encode 128 integers from {@code longs} into {@code out}. */
+    private void encode5(long[] input, int bitsPerValue, long[] out) {
+        out[0] =
+                (input[0] << 59)
+
+                        |
+                        (input[16] << 51)
+
+                        |
+                        (input[32] << 43)
+
+                        |
+                        (input[48] << 35)
+
+                        |
+                        (input[64] << 27)
+
+                        |
+                        (input[80] << 19)
+
+                        |
+                        (input[96] << 11)
+
+                        |
+                        (input[112] << 3)
+
+        ;out[1] =
+                (input[1] << 59)
+
+                        |
+                        (input[17] << 51)
+
+                        |
+                        (input[33] << 43)
+
+                        |
+                        (input[49] << 35)
+
+                        |
+                        (input[65] << 27)
+
+                        |
+                        (input[81] << 19)
+
+                        |
+                        (input[97] << 11)
+
+                        |
+                        (input[113] << 3)
+
+        ;out[2] =
+                (input[2] << 59)
+
+                        |
+                        (input[18] << 51)
+
+                        |
+                        (input[34] << 43)
+
+                        |
+                        (input[50] << 35)
+
+                        |
+                        (input[66] << 27)
+
+                        |
+                        (input[82] << 19)
+
+                        |
+                        (input[98] << 11)
+
+                        |
+                        (input[114] << 3)
+
+        ;out[3] =
+                (input[3] << 59)
+
+                        |
+                        (input[19] << 51)
+
+                        |
+                        (input[35] << 43)
+
+                        |
+                        (input[51] << 35)
+
+                        |
+                        (input[67] << 27)
+
+                        |
+                        (input[83] << 19)
+
+                        |
+                        (input[99] << 11)
+
+                        |
+                        (input[115] << 3)
+
+        ;out[4] =
+                (input[4] << 59)
+
+                        |
+                        (input[20] << 51)
+
+                        |
+                        (input[36] << 43)
+
+                        |
+                        (input[52] << 35)
+
+                        |
+                        (input[68] << 27)
+
+                        |
+                        (input[84] << 19)
+
+                        |
+                        (input[100] << 11)
+
+                        |
+                        (input[116] << 3)
+
+        ;out[5] =
+                (input[5] << 59)
+
+                        |
+                        (input[21] << 51)
+
+                        |
+                        (input[37] << 43)
+
+                        |
+                        (input[53] << 35)
+
+                        |
+                        (input[69] << 27)
+
+                        |
+                        (input[85] << 19)
+
+                        |
+                        (input[101] << 11)
+
+                        |
+                        (input[117] << 3)
+
+        ;out[6] =
+                (input[6] << 59)
+
+                        |
+                        (input[22] << 51)
+
+                        |
+                        (input[38] << 43)
+
+                        |
+                        (input[54] << 35)
+
+                        |
+                        (input[70] << 27)
+
+                        |
+                        (input[86] << 19)
+
+                        |
+                        (input[102] << 11)
+
+                        |
+                        (input[118] << 3)
+
+        ;out[7] =
+                (input[7] << 59)
+
+                        |
+                        (input[23] << 51)
+
+                        |
+                        (input[39] << 43)
+
+                        |
+                        (input[55] << 35)
+
+                        |
+                        (input[71] << 27)
+
+                        |
+                        (input[87] << 19)
+
+                        |
+                        (input[103] << 11)
+
+                        |
+                        (input[119] << 3)
+
+        ;out[8] =
+                (input[8] << 59)
+
+                        |
+                        (input[24] << 51)
+
+                        |
+                        (input[40] << 43)
+
+                        |
+                        (input[56] << 35)
+
+                        |
+                        (input[72] << 27)
+
+                        |
+                        (input[88] << 19)
+
+                        |
+                        (input[104] << 11)
+
+                        |
+                        (input[120] << 3)
+
+        ;out[9] =
+                (input[9] << 59)
+
+                        |
+                        (input[25] << 51)
+
+                        |
+                        (input[41] << 43)
+
+                        |
+                        (input[57] << 35)
+
+                        |
+                        (input[73] << 27)
+
+                        |
+                        (input[89] << 19)
+
+                        |
+                        (input[105] << 11)
+
+                        |
+                        (input[121] << 3)
+
+        ;tmp[10] =
+
+                (input[10] << 56)
+
+                        |
+                        (input[26] << 48)
+
+                        |
+                        (input[42] << 40)
+
+                        |
+                        (input[58] << 32)
+
+                        |
+                        (input[74] << 24)
+
+                        |
+                        (input[90] << 16)
+
+                        |
+                        (input[106] << 8)
+
+                        |
+                        (input[122] << 0)
+
+        ;
+        tmp[11] =
+
+                (input[11] << 56)
+
+                        |
+                        (input[27] << 48)
+
+                        |
+                        (input[43] << 40)
+
+                        |
+                        (input[59] << 32)
+
+                        |
+                        (input[75] << 24)
+
+                        |
+                        (input[91] << 16)
+
+                        |
+                        (input[107] << 8)
+
+                        |
+                        (input[123] << 0)
+
+        ;
+        tmp[12] =
+
+                (input[12] << 56)
+
+                        |
+                        (input[28] << 48)
+
+                        |
+                        (input[44] << 40)
+
+                        |
+                        (input[60] << 32)
+
+                        |
+                        (input[76] << 24)
+
+                        |
+                        (input[92] << 16)
+
+                        |
+                        (input[108] << 8)
+
+                        |
+                        (input[124] << 0)
+
+        ;
+        tmp[13] =
+
+                (input[13] << 56)
+
+                        |
+                        (input[29] << 48)
+
+                        |
+                        (input[45] << 40)
+
+                        |
+                        (input[61] << 32)
+
+                        |
+                        (input[77] << 24)
+
+                        |
+                        (input[93] << 16)
+
+                        |
+                        (input[109] << 8)
+
+                        |
+                        (input[125] << 0)
+
+        ;
+        tmp[14] =
+
+                (input[14] << 56)
+
+                        |
+                        (input[30] << 48)
+
+                        |
+                        (input[46] << 40)
+
+                        |
+                        (input[62] << 32)
+
+                        |
+                        (input[78] << 24)
+
+                        |
+                        (input[94] << 16)
+
+                        |
+                        (input[110] << 8)
+
+                        |
+                        (input[126] << 0)
+
+        ;
+        tmp[15] =
+
+                (input[15] << 56)
+
+                        |
+                        (input[31] << 48)
+
+                        |
+                        (input[47] << 40)
+
+                        |
+                        (input[63] << 32)
+
+                        |
+                        (input[79] << 24)
+
+                        |
+                        (input[95] << 16)
+
+                        |
+                        (input[111] << 8)
+
+                        |
+                        (input[127] << 0)
+
+        ;
+        final int remainingBitsPerLong = 3;
+        final long maskRemainingBitsPerLong = MASKS8[remainingBitsPerLong];
+
+        int tmpIdx = 0;
+        int idx = 10;
+        int remainingBitsPerValue = bitsPerValue;
+        while (idx < 16) {
+            if (remainingBitsPerValue >= remainingBitsPerLong) {
+                remainingBitsPerValue -= remainingBitsPerLong;
+                out[tmpIdx++] |= (tmp[idx] >>> remainingBitsPerValue) & maskRemainingBitsPerLong;
+                if (remainingBitsPerValue == 0) {
+                    idx++;
+                    remainingBitsPerValue = bitsPerValue;
+                }
+            } else {
+                final long mask1, mask2;
+
+                mask1 = MASKS8[remainingBitsPerValue];
+                mask2 = MASKS8[remainingBitsPerLong - remainingBitsPerValue];
+                out[tmpIdx] |= (tmp[idx++] & mask1) << (remainingBitsPerLong - remainingBitsPerValue);
+                remainingBitsPerValue = bitsPerValue - remainingBitsPerLong + remainingBitsPerValue;
+                out[tmpIdx++] |= (tmp[idx] >>> remainingBitsPerValue) & mask2;
+            }
+        }
+
+    }
+    /**
+     * Encode 128 integers from {@code longs} into {@code out}.
+     */
     void encode(long[] longs, int bitsPerValue, long[] out) throws IOException {
         final int nextPrimitive;
         final int numLongs;
+//        if (bitsPerValue == 5) {
+//            encode5(longs, bitsPerValue, out);
+//            return;
+//        }
         if (bitsPerValue <= 8) {
             nextPrimitive = 8;
             numLongs = BLOCK_SIZE / 8;
@@ -183,7 +613,9 @@ public class ForUtil {
         }
     }
 
-    /** Number of bytes required to encode 128 integers of {@code bitsPerValue} bits per value. */
+    /**
+     * Number of bytes required to encode 128 integers of {@code bitsPerValue} bits per value.
+     */
     int numBytes(int bitsPerValue) {
         return bitsPerValue << (BLOCK_SIZE_LOG2 - 3);
     }
@@ -191,7 +623,7 @@ public class ForUtil {
     private static void decodeSlow(int bitsPerValue, long[] in, long[] tmp, long[] longs)
             throws IOException {
         final int numLongs = bitsPerValue << 1;
-//        in.readLongs(tmp, 0, numLongs);
+        tmp = in;
         final long mask = MASKS32[bitsPerValue];
         int longsIdx = 0;
         int shift = 32 - bitsPerValue;
@@ -245,6 +677,7 @@ public class ForUtil {
             MASKS32[i] = mask32(i);
         }
     }
+
     // mark values in array as final longs to avoid the cost of reading array, arrays should only be
     // used when the idx is a variable
     private static final long MASK8_1 = MASKS8[1];
@@ -292,7 +725,9 @@ public class ForUtil {
     private static final long MASK32_23 = MASKS32[23];
     private static final long MASK32_24 = MASKS32[24];
 
-    /** Decode 128 integers into {@code longs}. */
+    /**
+     * Decode 128 integers into {@code longs}.
+     */
     void decode(int bitsPerValue, long[] in, long[] longs) throws IOException {
         switch (bitsPerValue) {
             case 1:
@@ -501,7 +936,7 @@ public class ForUtil {
     }
 
     private static void decode1(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 2);
+        tmp = in;
         shiftLongs(tmp, 2, longs, 0, 7, MASK8_1);
         shiftLongs(tmp, 2, longs, 2, 6, MASK8_1);
         shiftLongs(tmp, 2, longs, 4, 5, MASK8_1);
@@ -513,7 +948,7 @@ public class ForUtil {
     }
 
     private static void decode2(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 4);
+        tmp = in;
         shiftLongs(tmp, 4, longs, 0, 6, MASK8_2);
         shiftLongs(tmp, 4, longs, 4, 4, MASK8_2);
         shiftLongs(tmp, 4, longs, 8, 2, MASK8_2);
@@ -521,7 +956,7 @@ public class ForUtil {
     }
 
     private static void decode3(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 6);
+        tmp = in;
         shiftLongs(tmp, 6, longs, 0, 5, MASK8_3);
         shiftLongs(tmp, 6, longs, 6, 2, MASK8_3);
         for (int iter = 0, tmpIdx = 0, longsIdx = 12; iter < 2; ++iter, tmpIdx += 3, longsIdx += 2) {
@@ -535,13 +970,13 @@ public class ForUtil {
     }
 
     private static void decode4(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 8);
+        tmp = in;
         shiftLongs(tmp, 8, longs, 0, 4, MASK8_4);
         shiftLongs(tmp, 8, longs, 8, 0, MASK8_4);
     }
 
     private static void decode5(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 10);
+        tmp = in;
         shiftLongs(tmp, 10, longs, 0, 3, MASK8_5);
         for (int iter = 0, tmpIdx = 0, longsIdx = 10; iter < 2; ++iter, tmpIdx += 5, longsIdx += 3) {
             long l0 = (tmp[tmpIdx + 0] & MASK8_3) << 2;
@@ -558,7 +993,7 @@ public class ForUtil {
     }
 
     private static void decode6(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 12);
+        tmp = in;
         shiftLongs(tmp, 12, longs, 0, 2, MASK8_6);
         shiftLongs(tmp, 12, tmp, 0, 0, MASK8_2);
         for (int iter = 0, tmpIdx = 0, longsIdx = 12; iter < 4; ++iter, tmpIdx += 3, longsIdx += 1) {
@@ -570,7 +1005,7 @@ public class ForUtil {
     }
 
     private static void decode7(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 14);
+        tmp = in;
         shiftLongs(tmp, 14, longs, 0, 1, MASK8_7);
         shiftLongs(tmp, 14, tmp, 0, 0, MASK8_1);
         for (int iter = 0, tmpIdx = 0, longsIdx = 14; iter < 2; ++iter, tmpIdx += 7, longsIdx += 1) {
@@ -586,11 +1021,11 @@ public class ForUtil {
     }
 
     private static void decode8(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(longs, 0, 16);
+        System.arraycopy(in, 0, longs, 0, 16);
     }
 
     private static void decode9(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 18);
+        tmp = in;
         shiftLongs(tmp, 18, longs, 0, 7, MASK16_9);
         for (int iter = 0, tmpIdx = 0, longsIdx = 18; iter < 2; ++iter, tmpIdx += 9, longsIdx += 7) {
             long l0 = (tmp[tmpIdx + 0] & MASK16_7) << 2;
@@ -619,7 +1054,7 @@ public class ForUtil {
     }
 
     private static void decode10(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 20);
+        tmp = in;
         shiftLongs(tmp, 20, longs, 0, 6, MASK16_10);
         for (int iter = 0, tmpIdx = 0, longsIdx = 20; iter < 4; ++iter, tmpIdx += 5, longsIdx += 3) {
             long l0 = (tmp[tmpIdx + 0] & MASK16_6) << 4;
@@ -636,7 +1071,7 @@ public class ForUtil {
     }
 
     private static void decode11(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 22);
+        tmp = in;
         shiftLongs(tmp, 22, longs, 0, 5, MASK16_11);
         for (int iter = 0, tmpIdx = 0, longsIdx = 22; iter < 2; ++iter, tmpIdx += 11, longsIdx += 5) {
             long l0 = (tmp[tmpIdx + 0] & MASK16_5) << 6;
@@ -663,7 +1098,7 @@ public class ForUtil {
     }
 
     private static void decode12(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 24);
+        tmp = in;
         shiftLongs(tmp, 24, longs, 0, 4, MASK16_12);
         shiftLongs(tmp, 24, tmp, 0, 0, MASK16_4);
         for (int iter = 0, tmpIdx = 0, longsIdx = 24; iter < 8; ++iter, tmpIdx += 3, longsIdx += 1) {
@@ -675,7 +1110,7 @@ public class ForUtil {
     }
 
     private static void decode13(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 26);
+        tmp = in;
         shiftLongs(tmp, 26, longs, 0, 3, MASK16_13);
         for (int iter = 0, tmpIdx = 0, longsIdx = 26; iter < 2; ++iter, tmpIdx += 13, longsIdx += 3) {
             long l0 = (tmp[tmpIdx + 0] & MASK16_3) << 10;
@@ -700,7 +1135,7 @@ public class ForUtil {
     }
 
     private static void decode14(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 28);
+        tmp = in;
         shiftLongs(tmp, 28, longs, 0, 2, MASK16_14);
         shiftLongs(tmp, 28, tmp, 0, 0, MASK16_2);
         for (int iter = 0, tmpIdx = 0, longsIdx = 28; iter < 4; ++iter, tmpIdx += 7, longsIdx += 1) {
@@ -716,7 +1151,7 @@ public class ForUtil {
     }
 
     private static void decode15(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 30);
+        tmp = in;
         shiftLongs(tmp, 30, longs, 0, 1, MASK16_15);
         shiftLongs(tmp, 30, tmp, 0, 0, MASK16_1);
         for (int iter = 0, tmpIdx = 0, longsIdx = 30; iter < 2; ++iter, tmpIdx += 15, longsIdx += 1) {
@@ -740,11 +1175,11 @@ public class ForUtil {
     }
 
     private static void decode16(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(longs, 0, 32);
+        tmp = in;
     }
 
     private static void decode17(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 34);
+        tmp = in;
         shiftLongs(tmp, 34, longs, 0, 15, MASK32_17);
         for (int iter = 0, tmpIdx = 0, longsIdx = 34; iter < 2; ++iter, tmpIdx += 17, longsIdx += 15) {
             long l0 = (tmp[tmpIdx + 0] & MASK32_15) << 2;
@@ -797,7 +1232,7 @@ public class ForUtil {
     }
 
     private static void decode18(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 36);
+        tmp = in;
         shiftLongs(tmp, 36, longs, 0, 14, MASK32_18);
         for (int iter = 0, tmpIdx = 0, longsIdx = 36; iter < 4; ++iter, tmpIdx += 9, longsIdx += 7) {
             long l0 = (tmp[tmpIdx + 0] & MASK32_14) << 4;
@@ -826,7 +1261,7 @@ public class ForUtil {
     }
 
     private static void decode19(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 38);
+        tmp = in;
         shiftLongs(tmp, 38, longs, 0, 13, MASK32_19);
         for (int iter = 0, tmpIdx = 0, longsIdx = 38; iter < 2; ++iter, tmpIdx += 19, longsIdx += 13) {
             long l0 = (tmp[tmpIdx + 0] & MASK32_13) << 6;
@@ -877,7 +1312,7 @@ public class ForUtil {
     }
 
     private static void decode20(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 40);
+        tmp = in;
         shiftLongs(tmp, 40, longs, 0, 12, MASK32_20);
         for (int iter = 0, tmpIdx = 0, longsIdx = 40; iter < 8; ++iter, tmpIdx += 5, longsIdx += 3) {
             long l0 = (tmp[tmpIdx + 0] & MASK32_12) << 8;
@@ -894,7 +1329,7 @@ public class ForUtil {
     }
 
     private static void decode21(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 42);
+        tmp = in;
         shiftLongs(tmp, 42, longs, 0, 11, MASK32_21);
         for (int iter = 0, tmpIdx = 0, longsIdx = 42; iter < 2; ++iter, tmpIdx += 21, longsIdx += 11) {
             long l0 = (tmp[tmpIdx + 0] & MASK32_11) << 10;
@@ -943,7 +1378,7 @@ public class ForUtil {
     }
 
     private static void decode22(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 44);
+        tmp = in;
         shiftLongs(tmp, 44, longs, 0, 10, MASK32_22);
         for (int iter = 0, tmpIdx = 0, longsIdx = 44; iter < 4; ++iter, tmpIdx += 11, longsIdx += 5) {
             long l0 = (tmp[tmpIdx + 0] & MASK32_10) << 12;
@@ -970,7 +1405,7 @@ public class ForUtil {
     }
 
     private static void decode23(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 46);
+        tmp = in;
         shiftLongs(tmp, 46, longs, 0, 9, MASK32_23);
         for (int iter = 0, tmpIdx = 0, longsIdx = 46; iter < 2; ++iter, tmpIdx += 23, longsIdx += 9) {
             long l0 = (tmp[tmpIdx + 0] & MASK32_9) << 14;
@@ -1017,7 +1452,7 @@ public class ForUtil {
     }
 
     private static void decode24(long[] in, long[] tmp, long[] longs) throws IOException {
-//        in.readLongs(tmp, 0, 48);
+        tmp = in;
         shiftLongs(tmp, 48, longs, 0, 8, MASK32_24);
         shiftLongs(tmp, 48, tmp, 0, 0, MASK32_8);
         for (int iter = 0, tmpIdx = 0, longsIdx = 48; iter < 16; ++iter, tmpIdx += 3, longsIdx += 1) {

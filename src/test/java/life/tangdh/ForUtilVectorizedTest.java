@@ -151,6 +151,234 @@ public class ForUtilVectorizedTest {
     }
 
     @Test
+    public void encodeDecode_1_same_format() throws IOException {
+        Random random = new Random();
+        var forUtilVectorized = new ForUtilVectorized();
+        var forUtil  = new ForUtil();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            long[] raw = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(2);
+                raw[j] = input[j];
+            }
+            long[] output = new long[128];
+            long[] outs =  new long[128];
+            forUtilVectorized.encode(input,1, output);
+            forUtil.encode(input, 1, outs);
+
+            Assert.assertArrayEquals(outs, output);
+            long[] output1 = new long[128];
+            forUtil.decode(1, output, output1);
+            Assert.assertArrayEquals(raw, output1);
+
+
+        }
+    }
+
+    @Test
+    public void encodeDecode_same_format() throws IOException {
+        Random random = new Random();
+        var forUtilVectorized = new ForUtilVectorized();
+        var forUtil  = new ForUtil();
+        for(int bpv = 1; bpv <= 32; bpv++) {
+            for (int i = 0; i < 100; i++) {
+                long[] input = new long[128];
+                long[] raw = new long[128];
+                for (int j = 0; j < 128; j++) {
+                    input[j] = random.nextLong((1L << bpv) - 1);
+                    raw[j] = input[j];
+                }
+                long[] output = new long[128];
+                long[] outs = new long[128];
+                forUtilVectorized.encode(input, bpv, output);
+                forUtil.encode(input, bpv, outs);
+
+                Assert.assertArrayEquals(outs, output);
+//                long[] output1 = new long[128];
+//                forUtil.decode(bpv, output, output1);
+//                Assert.assertArrayEquals(raw, output1);
+
+
+            }
+        }
+    }
+
+    @Test
+    public void encodeDecode_2_same_format() throws IOException {
+        Random random = new Random();
+        var forUtilVectorized = new ForUtilVectorized();
+        var forUtil  = new ForUtil();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            long[] raw = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 2);
+                raw[j] = input[j];
+            }
+            long[] output = new long[128];
+            long[] outs =  new long[128];
+            forUtilVectorized.encode(input,2, output);
+            forUtil.encode(input, 2, outs);
+
+            Assert.assertArrayEquals(outs, output);
+            long[] output1 = new long[128];
+            forUtil.decode(2, output, output1);
+            Assert.assertArrayEquals(raw, output1);
+
+
+        }
+    }
+
+    @Test
+    public void encodeDecode_3_same_format() throws IOException {
+        Random random = new Random();
+        var forUtilVectorized = new ForUtilVectorized();
+        var forUtil  = new ForUtil();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            long[] raw = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 3);
+                raw[j] = input[j];
+            }
+            long[] output = new long[128];
+            long[] outs =  new long[128];
+            forUtilVectorized.encode(input,3, output);
+            forUtil.encode(input, 3, outs);
+
+            long[] output1 = new long[128];
+            forUtil.decode(3, output, output1);
+            Assert.assertArrayEquals(raw, output1);
+
+
+        }
+    }
+
+    @Test
+    public void encodeDecode_5_same_format() throws IOException {
+        Random random = new Random();
+        var forUtilVectorized = new ForUtilVectorized();
+        var forUtil  = new ForUtil();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            long[] raw = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 5);
+                raw[j] = input[j];
+            }
+            long[] output = new long[128];
+            long[] outs =  new long[128];
+            forUtilVectorized.encode(input,5, output);
+            forUtil.encode(input, 5, outs);
+
+            long[] output1 = new long[128];
+            forUtil.decode(5, output, output1);
+            Assert.assertArrayEquals(raw, output1);
+        }
+    }
+
+    @Test
+    public void encodeDecode_6_same_format() throws IOException {
+        Random random = new Random();
+        var forUtilVectorized = new ForUtilVectorized();
+        var forUtil  = new ForUtil();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            long[] raw = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 6);
+                raw[j] = input[j];
+            }
+            long[] output = new long[128];
+            long[] outs =  new long[128];
+            forUtilVectorized.encode(input,6, output);
+            forUtil.encode(input, 6, outs);
+
+            long[] output1 = new long[128];
+            forUtil.decode(6, output, output1);
+            Assert.assertArrayEquals(raw, output1);
+        }
+    }
+
+    @Test
+    public void encodeDecode_7_same_format() throws IOException {
+        Random random = new Random();
+        var forUtilVectorized = new ForUtilVectorized();
+        var forUtil  = new ForUtil();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            long[] raw = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 7);
+                raw[j] = input[j];
+            }
+            long[] output = new long[128];
+            long[] outs =  new long[128];
+            forUtilVectorized.encode(input,7, output);
+            forUtil.encode(input, 7, outs);
+
+            long[] output1 = new long[128];
+            forUtil.decode(7, output, output1);
+            Assert.assertArrayEquals(raw, output1);
+        }
+    }
+
+
+    @Test
+    public void encodeDecode_4_same_format() throws IOException {
+        Random random = new Random();
+        var forUtilVectorized = new ForUtilVectorized();
+        var forUtil  = new ForUtil();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            long[] raw = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 4);
+                raw[j] = input[j];
+            }
+            long[] output = new long[128];
+            long[] outs =  new long[128];
+            forUtilVectorized.encode(input,4, output);
+            forUtil.encode(input, 4, outs);
+
+            Assert.assertArrayEquals(outs, output);
+            long[] output1 = new long[128];
+            forUtil.decode(4, output, output1);
+            Assert.assertArrayEquals(raw, output1);
+
+
+        }
+    }
+
+    @Test
+    public void encodeDecode_8_same_format() throws IOException {
+        Random random = new Random();
+        var forUtilVectorized = new ForUtilVectorized();
+        var forUtil  = new ForUtil();
+        for (int i = 0; i < 100; i++) {
+            long[] input = new long[128];
+            long[] raw = new long[128];
+            for (int j = 0; j < 128; j++) {
+                input[j] = random.nextLong(1 << 8);
+                raw[j] = input[j];
+            }
+            long[] output = new long[128];
+            long[] outs =  new long[128];
+            forUtilVectorized.encode(input,8, output);
+            forUtil.encode(input, 8, outs);
+
+            Assert.assertArrayEquals(outs, output);
+            long[] output1 = new long[128];
+            forUtil.decode(8, output, output1);
+            Assert.assertArrayEquals(raw, output1);
+
+
+        }
+    }
+
+
+    @Test
     public void encodeDecode_2() {
         Random random = new Random();
         for (int i = 0; i < 100; i++) {
