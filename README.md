@@ -2,6 +2,14 @@
 
 Vectorized Code in `SimdPack.java`.
 
+Test File is `life/tangdh/ForUtilVectorizedTest.java`
+
+Benchmark is `life/tangdh/VectorizeBenchmark.java`
+
+Java version >= 20
+IDEA PLUGIN 'JMH Java Microbenchmark Harness' to run benchmark in idea
+Don't forget to add vm option `--add-modules jdk.incubator.vector`
+
 ## Current Result
 
 | Benchmark                   | Mode | Cnt         | Score          | Error         | Units |
