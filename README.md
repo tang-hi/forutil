@@ -1,10 +1,10 @@
 # Rewrite ForUtil
 
-Vectorized Code in `SimdPack.java`.
+Vectorized Code in `ForUtilVectorized.java`.
 
 Test File is `life/tangdh/ForUtilVectorizedTest.java`
 
-Benchmark is `life/tangdh/VectorizeBenchmark.java`
+Benchmark is `life/tangdh/Bechmark.java`
 
 Java version >= 20
 IDEA PLUGIN 'JMH Java Microbenchmark Harness' to run benchmark in idea
